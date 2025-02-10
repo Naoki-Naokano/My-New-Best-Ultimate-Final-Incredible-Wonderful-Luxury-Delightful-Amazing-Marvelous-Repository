@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таймер ожидания</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #ffe6e6;
+        }
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d63384;
+        }
+        #progressContainer {
+            width: 80%;
+            background-color: #f8d7da;
+            margin: 20px auto;
+            height: 30px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+        }
+        #progressBar {
+            height: 100%;
+            width: 0%;
+            background-color: #ff69b4;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-weight: bold;
+        }
+        h1 {
+            color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отсчет до момента, когда мы снова будем вместе 💖</h1>
+    <div id="timer"></div>
+    <div id="progressContainer">
+        <div id="progressBar">0%</div>
+    </div>
+    
+    <script>
+        function updateTimer() {
+            const targetDate = new Date("2025-02-15T11:00:00").getTime();
+            const now = new Date().getTime();
+            const totalSeconds = 486000;
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("timer").innerText = "Наше время пришло! 💑";
+                document.getElementById("progressBar").style.width = "100%";
+                document.getElementById("progressBar").innerText = "100%";
+                return;
+            }
+            
+            const secondsLeft = Math.floor(difference / 1000);
+            document.getElementById("timer").innerText = `Осталось секунд до нашей встречи: ${secondsLeft} ⏳❤️`;
+            
+            const progressPercentage = ((totalSeconds - secondsLeft) / totalSeconds) * 100;
+            document.getElementById("progressBar").style.width = `${progressPercentage}%`;
+            document.getElementById("progressBar").innerText = `${Math.floor(progressPercentage)}%`; 
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
